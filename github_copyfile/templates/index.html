@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>serverless_architecture</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+            }
+
+            h1 {
+                color: #333;
+                text-align: center;
+                margin-bottom: 30px;
+                font-size: 28px;
+            }
+
+            form {
+                background: white;
+                padding: 40px;
+                border-radius: 20px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                max-width: 500px;
+                width: 100%;
+            }
+
+            input[type="file"] {
+                width: 100%;
+                padding: 15px;
+                margin-bottom: 20px;
+                border: 2px dashed #667eea;
+                border-radius: 10px;
+                background: #f8f9ff;
+                cursor: pointer;
+                font-size: 14px;
+            }
+
+            input[type="file"]:hover {
+                border-color: #764ba2;
+                background: #f0f2ff;
+            }
+
+            button[type="submit"] {
+                width: 100%;
+                padding: 15px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border: none;
+                border-radius: 10px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            }
+
+            button[type="submit"]:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            }
+
+            button[type="submit"]:active {
+                transform: translateY(0);
+            }
+
+            #result {
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                margin-top: 20px;
+                max-width: 500px;
+                width: 100%;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                word-wrap: break-word;
+                white-space: pre-wrap;
+                font-family: 'Courier New', monospace;
+                font-size: 14px;
+                color: #333;
+                line-height: 1.6;
+                min-height: 50px;
+            }
+
+            #result:empty {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <form id="uploadForm" method="post" enctype="multipart/form-data">
+                <h1>image upload</h1>
+                <input type="file" name="file" accept="image/*" required>
+                <button type="submit">upload</button>
+            </form>
+            <div id="result"></div>
+        </div>
+    </body>
+    <script>
+        document.getElementById("uploadForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const response = await fetch("/upload", {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            document.getElementById("result").innerText = JSON.stringify(result, null, 2);
+        })
+    </script>
+</html>
