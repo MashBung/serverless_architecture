@@ -3,6 +3,9 @@
 
 🛠 Tech Stack
 Framework: FastAPI, PyTorch (CNN)
+
 Infrastructure: Terraform (IaC)
+
 AWS Services: ECS Fargate, Lambda, S3, ECR, CloudFront
+
 DevOps: Docker
